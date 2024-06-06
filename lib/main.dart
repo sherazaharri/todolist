@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'entry_card.dart';
 import 'task.dart';
+import 'package:posthog_flutter/posthog_flutter.dart';
 
 
 void main() {
@@ -97,7 +98,9 @@ class _ToDoListState extends State<ToDoList> {
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
                     OutlinedButton(
-                      onPressed: (){
+                      onPressed: ()async {
+                        await Posthog().capture(
+                        eventName: 'add_task_button_clicked',);
                         setState(() {
                           taskList.add(Task(dueDate: newDate, todoText: newTask));
                         });
